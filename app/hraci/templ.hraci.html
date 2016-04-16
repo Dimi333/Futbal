@@ -1,0 +1,8 @@
+<md-toolbar layout="row" class="md-whiteframe-z1 md-padding">
+	<h3>Hráči</h3>
+	&nbsp;&nbsp;&nbsp;<md-button type="button" class="md-raised tensieTlacidlo" ng-click="oknoPridajHraca($event)">Pridať hráča</md-button>
+</md-toolbar>
+
+<div class="md-padding">
+	<zoznam-hracov ng-if="hraci" data-hraci="hraci" data-upravy="1"></zoznam-hracov>
+</div>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="sk">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+		
+		<title>Futbal</title>
+
+		<link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+
+		<link rel='stylesheet' href='//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+		<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css"/>
+
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+
+		<style type="text/css">
+		/**
+		* Hide when Angular is not yet loaded and initialized
+		*/
+		[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+		display: none !important;
+		}
+		</style>
+
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<base href="/futbal/">
+
+		<link href="css/css.css" rel="stylesheet">
+	</head>
+	<body role="document" ng-app="FutbalApp" ng-controller="HlCtrl" ng-cloak>
+
+	<div layout="row" layout-fill>
+		<md-sidenav flex layout="column" class="hlBocnaNavigacia site-sidenav md-sidenav-left md-whiteframe-z2"
+			md-component-id="left"
+			aria-label="Ukáž menu"
+			md-is-locked-open="$mdMedia('gt-sm')">
+
+			<md-toolbar class="md-whiteframe-z1 md-padding">
+				<h3><img height="25" class="logo" width="25" src="//wow.php5.sk/futbal/img/logo.png"> Futbal</h3>
+			</md-toolbar>
+
+			<hl-menu></hl-menu>
+
+			<div class="zn"><a href="zmeny">v. {{zn}}</a></div>
+	 	</md-sidenav>
+
+		<md-content flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+			<ng-view></ng-view>
+		</md-content>
+
+		<md-button class="md-icon-button md-primary" ng-click="toggleMenu()" aria-label="Menu" id="tlacidloMenu">
+			<md-icon md-svg-icon="img/menu.svg"></md-icon>
+		</md-button>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular-animate.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular-route.min.js"></script>
+
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular-animate.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0-rc.2/angular-aria.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+
+	<script src="app/ctrl.hl.js"></script>
+	<script src="app/ctrl.zaznamHry.js"></script>
+	<script src="app/ctrl.zacataHra.js"></script>
+	<script src="app/ctrl.hraci.js"></script>
+	<script src="app/ctrl.hry.js"></script>
+	<script src="app/ctrl.zmeny.js"></script>
+
+	<script src="app/app.js"></script>
+
+	<script src="app/servis.hry.js"></script>
+	<script src="app/servis.hraci.js"></script>
+
+	<script src="app/dir.pridajHraca.js"></script>
+	<script src="app/dir.zoznamHracov.js"></script>
+	<script src="app/dir.hlMenu.js"></script>
+	<script src="app/dir.zoznamHier.js"></script>
+	<script src="app/dir.pridajHru.js"></script>
+	</body>
+</html>
