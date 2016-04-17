@@ -51,6 +51,11 @@ FutbalApp.config(['$httpProvider', '$routeProvider', '$mdThemingProvider', '$loc
 				controller: 'zmenyCtrl',
 				activetab: 'zmeny'
 			}).
+			when('/nastavenia', {
+				templateUrl: 'app/nastavenia/templ.nastavenia.html',
+				controller: 'nastaveniaCtrl as $ctrl',
+				activetab: 'nastavenia'
+			}).
 			otherwise({
 				redirectTo: 'hry'
 			});
@@ -71,7 +76,7 @@ FutbalApp.directive('prihlasovaciFormular', function() {
 		controller: function() {
 			
 		},
-		template: "<br><br><form><input type='text' ng-model='meno'><input type='password' ng-model='heslo'><button type='submit'>Prihlas sa</button></form>"
+		template: "<br><br><form><input type='text' ng-model='meno'><input `type='password' ng-model='heslo'><button type='submit'>Prihlas sa</button></form>"
 	}
 });
 
@@ -85,3 +90,4 @@ FutbalApp.controller('HryCtrl', HryCtrl);
 FutbalApp.controller('zacataHraCtrl', zacataHraCtrl);
 FutbalApp.controller('zaznamHryCtrl', zaznamHryCtrl);
 FutbalApp.controller('zmenyCtrl', zmenyCtrl);
+FutbalApp.controller('nastaveniaCtrl', nastaveniaCtrl);

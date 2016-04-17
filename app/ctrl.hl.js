@@ -1,4 +1,4 @@
-function HlCtrl($scope, HraciServis, $window, $mdSidenav) {
+function HlCtrl($scope, HraciServis, NastaveniaServis, $window, $mdSidenav) {
 	var _this = this;
 
 	$scope.zn = '1.2 (1.0)';

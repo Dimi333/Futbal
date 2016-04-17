@@ -1,4 +1,4 @@
-FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMedia, $mdDialog) {
+FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMedia, $mdDialog, NastaveniaServis) {
 	return {
 		restrict: 'E',
 		scope: {
@@ -7,6 +7,7 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 		},
 		link: function(scope, element, attr) {
 			scope.zvolenyHrac = null;
+			scope.NastaveniaServis = NastaveniaServis;
 
 			scope.$on('nahratyHraci', function(event, args) {
 				scope.hraci = HraciServis.hraci;
@@ -221,11 +222,11 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 						</div>
 					</md-radio-group>
 
-					<md-button ng-show="upravy" class="md-warn md-primary md-raised" ng-click="chcesZmazatHraca($event)" flex="100" flex-gt-md="auto">
+					<md-button ng-show="upravy" ng-if="NastaveniaServis.nastavenia.mazanie == true" class="md-warn md-primary md-raised" ng-click="chcesZmazatHraca($event)" flex="100" flex-gt-md="auto">
 						Zmazať hráča
 					</md-button>
 
-					<md-button ng-show="upravy" class="md-primary md-raised" ng-click="upravHraca($event, zvolenyHrac)" flex="100" flex-gt-md="auto">
+					<md-button ng-show="upravy" ng-if="NastaveniaServis.nastavenia.uprava == true" class="md-primary md-raised" ng-click="upravHraca($event, zvolenyHrac)" flex="100" flex-gt-md="auto">
 						Upraviť hráča
 					</md-button>
 				</div>

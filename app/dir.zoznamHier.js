@@ -1,8 +1,9 @@
-FutbalApp.directive('zoznamHier', function(HryServis, $q, $rootScope, $mdMedia, $mdDialog) {
+FutbalApp.directive('zoznamHier', function(HryServis, $q, $rootScope, $mdMedia, $mdDialog, NastaveniaServis) {
 	return {
 		restrict: 'E',
 		link: function(scope, element, attr) {
 			scope.zvolenaHra = null;
+			scope.NastaveniaServis = NastaveniaServis;
 
 			scope.$on('nahrateHry', function(event, args) {
 				scope.hry = HryServis.hry;
@@ -91,7 +92,7 @@ FutbalApp.directive('zoznamHier', function(HryServis, $q, $rootScope, $mdMedia, 
 							</div>
 						</md-radio-group>
 
-						<md-button type="button" ng-click="chcesZmazatHru($event)" class="md-raised md-warn">Zmazať hru</md-button>
+						<md-button type="button" ng-if="NastaveniaServis.nastavenia.mazanie == true" ng-click="chcesZmazatHru($event)" class="md-raised md-warn">Zmazať hru</md-button>
 				</div>`
 	}
 });
