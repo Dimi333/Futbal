@@ -53,7 +53,7 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 				} else {
 					var confirm = $mdDialog.confirm()
 						.title('Naozaj chcete zmazať hráča?')
-						.textContent('Zmažete jeho aj všetky jeho góly, ktoré stretlil')
+						.textContent('Góly ostanú zachované')
 						.ariaLabel('Naozaj zmazať hráča?')
 						.targetEvent(ev)
 						.ok('Áno')
