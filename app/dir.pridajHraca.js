@@ -69,22 +69,22 @@ FutbalApp.directive('pridajHraca', function(HraciServis, $rootScope) {
 			}
 		},
 		template: 
-	`
+			`
 
-		<md-input-container class="md-block">
-			<label>Zadaj meno hráča</label>
-			<input ng-model="meno">
-		</md-input-container>
+				<md-input-container class="md-block">
+					<label>Zadaj meno hráča</label>
+					<input ng-model="meno">
+				</md-input-container>
 
-		<md-input-container class="md-block">
-			<label>Zadaj číslo dresu hráča</label>
-			<input ng-model="cislo">
-		</md-input-container>
+				<md-input-container class="md-block">
+					<label>Zadaj číslo dresu hráča</label>
+					<input ng-model="cislo">
+				</md-input-container>
 
-		<md-button ng-show="pridaj" ng-click="pridajHraca()" class="md-raised md-primary">Uložiť</md-button>
+				<md-button ng-show="pridaj" ng-click="pridajHraca()" class="md-raised md-primary">Uložiť</md-button>
 
-		<md-button ng-hide="pridaj" ng-click="upravHraca()" class="md-raised md-primary">Zmeniť</md-button>
+				<md-button ng-hide="pridaj" ng-click="upravHraca()" class="md-raised md-primary">Zmeniť</md-button>
 
-	`
+			`
 	}
 });

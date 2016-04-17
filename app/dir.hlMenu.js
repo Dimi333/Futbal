@@ -1,10 +1,6 @@
 FutbalApp.directive('hlMenu', function($route) {
 	return {
 		restrict: 'E',
-		controller: function($scope) {
-			//	console.log($route);
-			
-		},
 		template: `
 
 			<md-list class="laveMenu">
@@ -29,6 +25,8 @@ FutbalApp.directive('hlMenu', function($route) {
 						<a href="nastavenia">Nastavenia</a>
 					</md-button>
 				</md-list-item>
+
+				<md-divider></md-divider>
 			</md-list>
 
 `
