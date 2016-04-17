@@ -1,0 +1,17 @@
+<md-toolbar layout="row" class="md-whiteframe-z1 md-padding">
+	<h3>Nastavenia</h3>
+</md-toolbar>
+
+<div class="md-padding">
+	<h4>Mazanie</h4>
+	
+	<md-switch class="md-primary" ng-change="$ctrl.onChangeMazanie($ctrl.NastaveniaServis.nastavenia.mazanie)" ng-model="$ctrl.NastaveniaServis.nastavenia.mazanie" aria-label="Prepínač pre mazanie">
+		Mazanie {{ $ctrl.spravaOmazani }}
+	</md-switch>
+
+	<h4>Úprava</h4>
+	
+	<md-switch class="md-primary" ng-change="$ctrl.onChangeUprava($ctrl.NastaveniaServis.nastavenia.uprava)" ng-model="$ctrl.NastaveniaServis.nastavenia.uprava" aria-label="Prepínač pre mazanie">
+		Úprava {{ $ctrl.spravaOuprave }}
+	</md-switch>
+</div>
