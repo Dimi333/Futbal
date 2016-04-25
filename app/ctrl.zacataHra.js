@@ -23,14 +23,13 @@ function zacataHraCtrl($scope, HraciServis, HryServis, $routeParams, $window) {
 	}
 
 	$scope.ukonciAulozStav = function(idHry) {
-		console.log(HryServis.vsetkyStreleneGoly);
 		HryServis.ulozHru($scope.idHry, JSON.stringify(HraciServis.vsetkyStreleneGoly)).then(
 			function(result) {
 				HryServis.nacitajHry().then(
 					function(result) {
 						HryServis.hry = result;
 						$scope.hry = HryServis.hry;
-						$window.location.href = '#/hry/';
+						$scope.chod('hry');
 					},
 					function error(error) {
 						console.log(error.statusText);
