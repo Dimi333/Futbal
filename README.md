@@ -1,6 +1,11 @@
 # Futbal
 
-Práce na verzii 1.2
+Práce na verzii 1.3
+
+## 1.3
+
+- Opravené chybné menu vo Firefoxe
+- Opravná chyba presmerovania pri začatej hre
 
 ## 1.2
 
