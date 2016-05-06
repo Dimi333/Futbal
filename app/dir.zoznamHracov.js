@@ -187,11 +187,11 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 											<md-button ng-click="order('pocetHier')">Počet zápasov</md-button>
 		     								<span class="sortorder" ng-show="predicate === 'pocetHier'" ng-class="{reverse:reverse}"></span>
 		     							</th>
-										<!--th ng-show="upravy">
-											<md-button ng-click="order('pocetHier')">Počet výhier</md-button>
-		     								<span class="sortorder" ng-show="predicate === 'pocetHier'" ng-class="{reverse:reverse}"></span>
+									<th>
+											<md-button ng-click="order('pocetVyhier')">Počet výhier</md-button>
+		     								<span class="sortorder" ng-show="predicate === 'pocetVyhier'" ng-class="{reverse:reverse}"></span>
 		     							</th>
-										<th ng-show="upravy">
+										<!--th ng-show="upravy">
 											<md-button ng-click="order('pocetHier')">Počet prehier</md-button>
 		     								<span class="sortorder" ng-show="predicate === 'pocetHier'" ng-class="{reverse:reverse}"></span>
 		     							</th-->
@@ -208,8 +208,8 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 										<td class="md-whiteframe-z1">{{x.menoHraca}}</td>
 										<td class="md-whiteframe-z1">{{x.kolkoStrelilGolov}} <small ng-show="upravy">(~{{x.kolkoStrelilGolov / x.pocetHier | number:1}})</small></td>
 										<td class="md-whiteframe-z1" ng-show="upravy">{{x.pocetHier}}</td>
-										<!--td ng-show="upravy">n</td>
-										<td ng-show="upravy">x</td-->
+										<td class="md-whiteframe-z1" ng-show="upravy">{{x.pocetVyhier}}</td>
+										<!--td ng-show="upravy">x</td-->
 										<td class="md-whiteframe-z1" ng-show="x.farba">
 											<div ng-switch="x.farba">
 												<div ng-switch-when="1">Biely</div>

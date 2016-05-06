@@ -221,7 +221,8 @@ if($_GET['vypisZeton']) {
 							hraci.id AS idHraca,
 							IF(hraci.cislo = 0, '', hraci.cislo) AS cislo,
 							COUNT(goly.id_golu) AS kolkoStrelilGolov,
-                            IFNULL(b.pocetHier, 0) AS pocetHier
+							IFNULL(b.pocetHier, 0) AS pocetHier,
+(select SUM(fhh.farba=(select IF(SUM(farba=1)>SUM(farba=2),1,IF(SUM(farba=1)=SUM(farba=2),0,2)) from futbal_goly where id_hry=fhh.id_hry group by id_hry)) as vitazne_zapasy from futbal_hry_hraci as fhh where fhh.id_hraca=hraci.id) as pocetVyhier
 						FROM
 							futbal_hraci AS hraci
 
