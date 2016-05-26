@@ -1,5 +1,6 @@
 <?php
-//v. 1.0
+//v. 1.3
+//treba este set.php, kde su nastavenia
 header('Content-Type: text/html; charset=utf-8');
 
 include 'set.php';
@@ -89,7 +90,7 @@ if($_GET['vypisZeton']) {
 
 			LEFT JOIN
 				(select
-					distinct concat(a.pocet1, ':', b.pocet2) AS vysledok,
+					distinct concat(IFNULL(a.pocet1, '0'), ':', IFNULL(b.pocet2, '0')) AS vysledok,
 					a.id_hry
 				from
 					(select
@@ -166,6 +167,11 @@ if($_GET['vypisZeton']) {
 				$db->query('DELETE FROM futbal_goly WHERE id_hry = :id_hry');
 				$db->bind(':id_hry', $_GET['id']);
 				$db->execute();
+
+				//zmaže asistencie z tej hry
+				$db->query('DELETE FROM futbal_asistencie WHERE id_hry = :id_hry');
+				$db->bind(':id_hry', $_GET['id']);
+				$db->execute();
 			$db->endTransaction();
 			break;
 
@@ -210,7 +216,7 @@ if($_GET['vypisZeton']) {
 									hry.id_hraca) b
 
 							ON a.idHraca = b.idHraca
-							
+
 							ORDER BY
 								a.idHraca
 							DESC"
@@ -222,14 +228,37 @@ if($_GET['vypisZeton']) {
 							IF(hraci.cislo = 0, '', hraci.cislo) AS cislo,
 							COUNT(goly.id_golu) AS kolkoStrelilGolov,
 							IFNULL(b.pocetHier, 0) AS pocetHier,
-(select SUM(fhh.farba=(select IF(SUM(farba=1)>SUM(farba=2),1,IF(SUM(farba=1)=SUM(farba=2),0,2)) from futbal_goly where id_hry=fhh.id_hry group by id_hry)) as vitazne_zapasy from futbal_hry_hraci as fhh where fhh.id_hraca=hraci.id) as pocetVyhier
+							(
+								select
+									SUM(
+										fhh.farba = (
+											select IF(SUM(farba=1)>SUM(farba=2),1,IF(SUM(farba=1)=SUM(farba=2),0,2))
+											from
+												futbal_goly
+											where
+												id_hry=fhh.id_hry
+											group by id_hry
+										)
+									) as vitazne_zapasy
+								from
+									futbal_hry_hraci as fhh
+								where
+									fhh.id_hraca = hraci.id
+							) as pocetVyhier,
+							(
+								select
+									COUNT(a.id_hraca)
+								from
+									futbal_asistencie as a
+								where
+									a.id_hraca = hraci.id
+							) as pocetAsistencii
 						FROM
 							futbal_hraci AS hraci
 
-
 						LEFT JOIN
 							futbal_goly AS goly ON goly.id_hraca = hraci.id
-							
+
                         LEFT JOIN (SELECT
 									COUNT(hry.id) AS pocetHier,
 				                   	hry.id_hraca AS idHraca
@@ -279,16 +308,50 @@ if($_GET['vypisZeton']) {
 
 			$arr1 = $db->resultset();*/
 
+			/*
+			SELECT
+										hraci.meno AS menoHraca,
+										IF(hraci.cislo = 0, "", hraci.cislo) AS cislo,
+										hraci.id,
+										goly.farba,
+										COUNT(goly.id_golu) AS kolkoStrelilGolov,
+										a.pocetAsistencii
+									FROM
+										futbal_hraci AS hraci
+									LEFT JOIN
+										futbal_goly AS goly ON goly.id_hraca = hraci.id
+									LEFT JOIN
+										(
+											SELECT
+												COUNT(id_hry) AS pocetAsistencii,
+												id_hraca
+											FROM
+												futbal_asistencie
+											WHERE
+												id_hry = :id
+											GROUP BY
+												id_hraca
+										) a
+										ON hraci.id = a.id_hraca
+									WHERE
+										goly.id_hry = :id
+									GROUP BY
+										hraci.meno
+			*/
+
 			$vysledok = $db->query('SELECT
 										hraci.meno AS menoHraca,
 										IF(hraci.cislo = 0, "", hraci.cislo) AS cislo,
 										hraci.id,
 										goly.farba,
-										COUNT(goly.id_golu) AS kolkoStrelilGolov
+										COUNT(goly.id_golu) AS kolkoStrelilGolov,
+										COUNT(a.id_hraca) AS pocetAsistencii
 									FROM
 										futbal_hraci AS hraci
 									LEFT JOIN
 										futbal_goly AS goly ON goly.id_hraca = hraci.id
+									LEFT JOIN
+										futbal_asistencie AS a ON a.id_hraca = hraci.id
 									WHERE
 										goly.id_hry = :id
 									GROUP BY
@@ -301,22 +364,32 @@ if($_GET['vypisZeton']) {
 			break;
 
 		case 'ulozHranuHru':
-			$json_obj = json_decode($_GET['vsetkyStreleneGoly'], true);
+			$goly = json_decode($_GET['vsetkyStreleneGoly'], true);
+			$asistencie = json_decode($_GET['vsetkyAsistencie'], true);
 
+			//goly
 			$db->beginTransaction();
-				for($i=0; $i<count($json_obj); $i++) {
+				for($i=0; $i<count($goly); $i++) {
 					$db->query('INSERT INTO futbal_goly (id_golu, id_hry, id_hraca, farba) VALUES (NULL, :id_hry, :id_hraca, :farba)');
-					$db->bind(':id_hry', $json_obj[$i]['id_hry']);
-					$db->bind(':id_hraca', $json_obj[$i]['id_hraca']);
-					$db->bind(':farba', $json_obj[$i]['farba']);
+					$db->bind(':id_hry', $goly[$i]['id_hry']);
+					$db->bind(':id_hraca', $goly[$i]['id_hraca']);
+					$db->bind(':farba', $goly[$i]['farba']);
 					$db->execute();
 				}
 
 				$db->query('UPDATE futbal_hry SET odohrate = 1 WHERE id = :id_hry');
 				$db->bind(':id_hry', $_GET['id']);
 				$db->execute();
+			$db->endTransaction();
 
-
+			//asistencie
+			$db->beginTransaction();
+				for($i=0; $i<count($asistencie); $i++) {
+					$db->query('INSERT INTO futbal_asistencie (id_hraca, id_hry) VALUES (:id_hraca, :id_hry)');
+					$db->bind(':id_hry', $asistencie[$i]['id_hry']);
+					$db->bind(':id_hraca', $asistencie[$i]['id_hraca']);
+					$db->execute();
+				}
 			$db->endTransaction();
 
 			break;

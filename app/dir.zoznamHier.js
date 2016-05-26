@@ -24,7 +24,7 @@ FutbalApp.directive('zoznamHier', function(HryServis, $q, $rootScope, $mdMedia, 
 				} else {
 					var confirm = $mdDialog.confirm()
 						.title('Naozaj chcete zmazať hru?')
-						.textContent('Zmažú sa aj všetky strelené góly!')
+						.textContent('Zmažú sa aj všetky strelené góly a asistencie!')
 						.ariaLabel('Naozaj zmazať hru?')
 						.targetEvent(ev)
 						.ok('Áno')
@@ -60,7 +60,7 @@ FutbalApp.directive('zoznamHier', function(HryServis, $q, $rootScope, $mdMedia, 
 						console.log(error.statusText);
 						scope.hraci = null;
 					}
-				);	
+				);
 			};
 		},
 		template: `<div class="row">
@@ -69,7 +69,7 @@ FutbalApp.directive('zoznamHier', function(HryServis, $q, $rootScope, $mdMedia, 
 								<table class="table">
 									<thead>
 										<tr>
-											<th></th>
+											<th ng-if="NastaveniaServis.nastavenia.mazanie == true"></th>
 											<th>Názov hry</th>
 											<th class="tac">Výsledok</th>
 											<th class="md-whiteframe-z1">Bieli</th>
@@ -77,13 +77,13 @@ FutbalApp.directive('zoznamHier', function(HryServis, $q, $rootScope, $mdMedia, 
 										</tr>
 									</thead>
 									<tbody>
-										<tr ng-repeat="x in hry">
-											<td class="prvyRiadokRadio"><md-radio-button ng-click="zvolHru(x.idHry)" ng-value="x.id" class="md-primary" aria-label="Id hry"></md-radio-button></td>
+										<tr ng-repeat="x in hry track by $index">
+											<td class="prvyRiadokRadio" ng-if="NastaveniaServis.nastavenia.mazanie == true"><md-radio-button ng-click="zvolHru(x.idHry)" ng-value="x.id" class="md-primary" aria-label="Id hry"></md-radio-button></td>
 											<td>
 												<md-button ng-if="x.odohrate == 1" type="button" ng-click="zobrazHru(x.id, x.nazov)" class="md-raised md-primary">{{x.nazov}}</small></md-button>
 												<md-button ng-if="x.odohrate == 0" type="button" ng-click="otvorHru(x.id)" class="md-raised md-warn">Začni hru <small>{{x.nazov}}</small></md-button>
 											</td>
-											<td class="tac"><b>{{x.vysledok}}</b></td>
+											<td class="tac"><b>{{x.vysledok}}</b> <b ng-if="x.vysledok == null">0:0</b></td>
 											<td class="md-whiteframe-z1">{{x.biely}}</td>
 											<td class="modry tac md-whiteframe-z1">{{x.modry}}</td>
 										</tr>

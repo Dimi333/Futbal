@@ -3,6 +3,7 @@ FutbalApp.service('HraciServis', function($http, $q, $rootScope) {
 	_this.hraci = null; //zoznam všetkých hráčov
 	_this.hraciDanejhry = null; //zoznam hráčov hry, ktorý sa práve hrá
 	_this.vsetkyStreleneGoly = []; //pole všetkých gólov, slúži na uloženie celej hry do DB, treba potom vždy vymazať
+	_this.vsetkyAsistencie = []; //pole všetkých asistencii, slúži na uloženie celej hry do DB, treba potom vždy vymazať
 
 	_this.nacitajHracovDanejhry = function(idHry) {
 		odlozeny_hraciDanejHry = $q.defer();

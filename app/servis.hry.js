@@ -17,10 +17,10 @@ FutbalApp.service('HryServis', function($http, $q, $rootScope) {
 			})
 	}
 
-	_this.ulozHru = function(idHry, vsetkyStreleneGoly) {
+	_this.ulozHru = function(idHry, vsetkyStreleneGoly, vsetkyAsistencie) {
 		odlozeny_hry_ulozenieHry = $q.defer();
 
-		return $http.post("php/angdata.php?co=ulozHranuHru&id="+idHry+"&vsetkyStreleneGoly="+vsetkyStreleneGoly)
+		return $http.post("php/angdata.php?co=ulozHranuHru&id="+idHry+"&vsetkyStreleneGoly="+vsetkyStreleneGoly+"&vsetkyAsistencie="+vsetkyAsistencie)
 			.then(function(response) {
 				//slub je splneny
 				odlozeny_hry_ulozenieHry.resolve(response.data);

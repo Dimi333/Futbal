@@ -4,8 +4,10 @@ Práce na verzii 1.3
 
 ## 1.3
 
+- Pridaný počet vyhratých zápasov
 - Opravené chybné menu vo Firefoxe
 - Opravná chyba presmerovania pri začatej hre
+- Pridané zapisovanie asistencií
 
 ## 1.2
 

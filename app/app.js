@@ -39,6 +39,7 @@ FutbalApp.config(['$httpProvider', '$routeProvider', '$mdThemingProvider', '$loc
 			when('/zacniHru/:idHry', {
 				templateUrl: 'app/hry/templ.zacataHra.html',
 				controller: 'zacataHraCtrl',
+				controllerAs: '$ctrl',
 				activetab: 'hry'
 			}).
 			when('/zobrazHru/:idHry/:nazov', {
@@ -74,7 +75,7 @@ FutbalApp.directive('prihlasovaciFormular', function() {
 	return {
 		restrict: 'E',
 		controller: function() {
-			
+
 		},
 		template: "<br><br><form><input type='text' ng-model='meno'><input `type='password' ng-model='heslo'><button type='submit'>Prihlas sa</button></form>"
 	}

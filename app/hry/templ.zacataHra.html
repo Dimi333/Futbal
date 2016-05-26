@@ -1,13 +1,16 @@
 <md-toolbar layout="row" class="md-whiteframe-z1 md-padding">
-	<h3>Biely: {{biely}} Modrý: {{modry}}</h3>
+	<h3>Biely: {{$ctrl.biely}} Modrý: {{$ctrl.modry}}</h3>
 </md-toolbar>
 
 <div class="md-padding">
 	<div class="col-md-12 tlacidlaHry">
-		<md-button type="button" ng-class="{'md-raised': hrac.farba == 1, 'md-raised md-primary': hrac.farba == 2}" ng-click="dalGol(hrac.id_hraca, $index)" ng-repeat="hrac in hraciDanejhry">{{hrac.menoHraca}} {{hrac.goly}}</md-button>
+		<div ng-repeat="hrac in $ctrl.hraciDanejhry">
+			<md-button type="button" ng-class="{'md-raised': hrac.farba == 1, 'md-raised md-primary': hrac.farba == 2}" ng-click="$ctrl.dalGol(hrac.id_hraca, $index)">{{hrac.menoHraca}} {{hrac.goly}}</md-button> &raquo;
+			<md-button type="button" ng-class="{'md-raised': hrac.farba == 1, 'md-raised md-primary': hrac.farba == 2}" ng-click="$ctrl.asistoval(hrac.id_hraca, $index)">Asistencia: {{hrac.menoHraca}} {{hrac.asistencie}}</md-button>
+		</div>
 	</div>
 
 	<div class="col-md-12">
-		<md-button type="button" ng-click="ukonciAulozStav(idHry)" class="md-warn">Ukončiť a uložiť stav</button>
+		<md-button type="button" ng-click="$ctrl.ukonciAulozStav(idHry)" class="md-warn">Ukončiť a uložiť stav</button>
 	</div>
 </div>

@@ -2,6 +2,9 @@
 	background: #106CC8;
 	color: white
 }
+h1 {
+	text-align: center;
+}
 .tlacidlaHry button {
 	margin: 20px;
 	padding: 10px
@@ -11,6 +14,10 @@ table {
 }
 td {
 	padding: 0px 5px;
+	text-align: center;
+}
+.tabulkaHraci td {
+	padding: 15px 5px;
 	text-align: center;
 }
 table tr td:first-child, table tr th:first-child {
@@ -53,11 +60,6 @@ h3 {
 	width: 100%;
 	margin: 0;
 	min-height: 48px;
-}
-.laveMenu a {
-	display: block;
-	text-decoration: none;
-	color: inherit;
 	text-align: left;
 }
 .sortorder:after {
@@ -70,6 +72,9 @@ h3 {
 	max-width: 200px;
 	background: #eee;
 }
+.hlBocnaNavigacia h3 {
+	text-align: left;
+}
 .zn {
 	position: absolute;
 	bottom: 0px;
@@ -78,7 +83,7 @@ h3 {
 }
 .prvyRiadokRadio {
 	width: 20px;
-	padding: 15px 0 0 0;
+	padding: 15px 0 0 0 !important;
 }
 #tlacidloMenu {
 	display: none;

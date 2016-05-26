@@ -93,11 +93,11 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 						$scope.hide = function() {
 							$mdDialog.hide();
 						};
-						
+
 						$scope.cancel = function() {
 							$mdDialog.hide();
 						};
-						
+
 						$scope.answer = function(answer) {
 							$mdDialog.hide(answer);
 						};
@@ -168,10 +168,10 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 				<div class="row">
 					<md-radio-group ng-model="zvolenyHrac">
 						<div class="obalTabulky">
-							<table class="table">
+							<table class="table tabulkaHraci">
 								<thead>
 									<tr>
-										<th ng-show="upravy"></th>
+										<th ng-if="NastaveniaServis.nastavenia.mazanie == true"></th>
 										<th>
 											<md-button>Číslo</md-button>
 										</th>
@@ -187,9 +187,13 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 											<md-button ng-click="order('pocetHier')">Počet zápasov</md-button>
 		     								<span class="sortorder" ng-show="predicate === 'pocetHier'" ng-class="{reverse:reverse}"></span>
 		     							</th>
-									<th>
+										<th ng-show="upravy">
 											<md-button ng-click="order('pocetVyhier')">Počet výhier</md-button>
 		     								<span class="sortorder" ng-show="predicate === 'pocetVyhier'" ng-class="{reverse:reverse}"></span>
+		     							</th>
+										<th>
+											<md-button ng-click="order('pocetAsistencii')">Počet asistencií</md-button>
+		     								<span class="sortorder" ng-show="predicate === 'pocetAsistencii'" ng-class="{reverse:reverse}"></span>
 		     							</th>
 										<!--th ng-show="upravy">
 											<md-button ng-click="order('pocetHier')">Počet prehier</md-button>
@@ -203,12 +207,13 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 								</thead>
 								<tbody>
 									<tr ng-class="{\'modry\': x.farba == 2}" ng-repeat="x in hraci | orderBy:predicate:reverse">
-										<td class="prvyRiadokRadio" ng-show="upravy"><md-radio-button ng-click="zvolHraca(x.idHraca)" ng-value="x.idHraca" class="md-primary" aria-label="Id Hráča"></md-radio-button></td>
+										<td class="prvyRiadokRadio" ng-if="NastaveniaServis.nastavenia.mazanie == true || NastaveniaServis.nastavenia.uprava == true"><md-radio-button ng-click="zvolHraca(x.idHraca)" ng-value="x.idHraca" class="md-primary" aria-label="Id Hráča"></md-radio-button></td>
 										<td class="md-whiteframe-z1">{{x.cislo}}</td>
 										<td class="md-whiteframe-z1">{{x.menoHraca}}</td>
 										<td class="md-whiteframe-z1">{{x.kolkoStrelilGolov}} <small ng-show="upravy">(~{{x.kolkoStrelilGolov / x.pocetHier | number:1}})</small></td>
 										<td class="md-whiteframe-z1" ng-show="upravy">{{x.pocetHier}}</td>
 										<td class="md-whiteframe-z1" ng-show="upravy">{{x.pocetVyhier}}</td>
+										<td class="md-whiteframe-z1">{{x.pocetAsistencii}}</td>
 										<!--td ng-show="upravy">x</td-->
 										<td class="md-whiteframe-z1" ng-show="x.farba">
 											<div ng-switch="x.farba">
