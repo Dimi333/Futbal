@@ -155,7 +155,7 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 			if($scope.upravy == 0) {
 				$scope.predicate = 'farba';
 			} else {
-				$scope.predicate = 'kolkoStrelilGolov';
+				$scope.predicate = ['kolkoStrelilGolov', 'gnz'];
 			}
 			$scope.reverse = true;
 
@@ -184,6 +184,10 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 		     								<span class="sortorder" ng-show="predicate === 'kolkoStrelilGolov'" ng-class="{reverse:reverse}"></span>
 										</th>
 										<th ng-show="upravy">
+											<md-button ng-click="order('gnz')">Góly na zápas</md-button>
+		     								<span class="sortorder" ng-show="predicate === 'gnz'" ng-class="{reverse:reverse}"></span>
+										</th>
+										<th ng-show="upravy">
 											<md-button ng-click="order('pocetHier')">Počet zápasov</md-button>
 		     								<span class="sortorder" ng-show="predicate === 'pocetHier'" ng-class="{reverse:reverse}"></span>
 		     							</th>
@@ -210,7 +214,8 @@ FutbalApp.directive('zoznamHracov', function(HraciServis, $q, $rootScope, $mdMed
 										<td class="prvyRiadokRadio" ng-if="NastaveniaServis.nastavenia.mazanie == true || NastaveniaServis.nastavenia.uprava == true"><md-radio-button ng-click="zvolHraca(x.idHraca)" ng-value="x.idHraca" class="md-primary" aria-label="Id Hráča"></md-radio-button></td>
 										<td class="md-whiteframe-z1">{{x.cislo}}</td>
 										<td class="md-whiteframe-z1">{{x.menoHraca}}</td>
-										<td class="md-whiteframe-z1">{{x.kolkoStrelilGolov}} <small ng-show="upravy">(~{{x.kolkoStrelilGolov / x.pocetHier | number:1}})</small></td>
+										<td class="md-whiteframe-z1">{{x.kolkoStrelilGolov}}</td>
+										<td ng-show="upravy" class="md-whiteframe-z1">{{x.gnz | number:1}}</td>
 										<td class="md-whiteframe-z1" ng-show="upravy">{{x.pocetHier}}</td>
 										<td class="md-whiteframe-z1" ng-show="upravy">{{x.pocetVyhier}}</td>
 										<td class="md-whiteframe-z1">{{x.pocetAsistencii}}</td>

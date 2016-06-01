@@ -226,6 +226,7 @@ if($_GET['vypisZeton']) {
 							hraci.meno AS menoHraca,
 							hraci.id AS idHraca,
 							IF(hraci.cislo = 0, '', hraci.cislo) AS cislo,
+							(COUNT(goly.id_golu) / IFNULL(b.pocetHier, 1)) AS gnz,
 							COUNT(goly.id_golu) AS kolkoStrelilGolov,
 							IFNULL(b.pocetHier, 0) AS pocetHier,
 							(
